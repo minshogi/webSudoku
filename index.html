@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web sudoku</title>
+    <link href="./style.css" rel="stylesheet">
+    <script src="sudoku.js"></script>
+</head>
+
+<body>
+    <h1 id="sudoku_title">SUDOKU</h1>
+
+    <div id="sudoku_menu">
+        <label for="difficulty-choice">Difficulty: </label>
+        <select id="difficulty-choice">
+            <option value="1" selected>Level 1</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>
+        </select>
+        <button onclick='go(getElementById("difficulty-choice").value)'>New Game!</button>
+    </div>
+
+    <div id="sudoku_container">
+        
+            <div id="board">
+            </div>
+            <button id="boardsubmit" type="button" onclick="submit()">Submit</button>
+        <form id="Hint">
+            <input id="Brow" type="number" placeholder="Row" min="0" max="8"/>
+            <input id="Bcol" type="number" placeholder="Col" min="0" max="8"/>
+            <button id="bval" type="button" onclick="Print(document.getElementById('Brow').value, document.getElementById('Bcol').value)">Hint</button>
+        </form>
+    </div>
+</body>
+</html>
