@@ -24,7 +24,6 @@ var callMatAPI = (level) => {
         body: raw,
         redirect: 'follow'
     };
-    console.log(raw);
     // make API call with parameters and use promises to get response
     fetch("https://v2ri4l5ybk.execute-api.us-west-2.amazonaws.com/boardPost", requestOptions)
         .then(function (response) {
@@ -34,26 +33,12 @@ var callMatAPI = (level) => {
             answerBoard = data["board"];
             usrBoard = data["usr_board"];
             make_matrix(data["usr_board"]);
-
-        }).catch(error => console.log('error', error));
+        })
+        .catch(error => console.log('error', error));
 
 }
 
 
-function go(level)
-{
-    var a, mat = [];
-    for (let i = 0; i < 9; i++)
-    {
-        a = [];
-        for (let j = 0; j < 9; j++)
-        {
-            a[j] = getRandomInt();
-        }
-        mat[i] = a;
-    }
-    make_matrix(mat);
-}
 
 function make_matrix(barray)
 {
@@ -81,34 +66,49 @@ function make_matrix(barray)
     document.getElementById("Hint").style.visibility = "visible";
 }
 
-function submit()
-{
-    var mat = [];
-    for (let i = 0; i < 9; i++){
-        var a = [];
-        for (let j = 0; j < 9; j++){
-            a[j] = Value(i, j);
-        }
-        mat[i] = a;
-    }
-    var output = "";
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++){
-            output += mat[i][j];
-        }
-        output += '\n';
-    }
-    alert(output);
-}
 
 function Value(r, c)
 {
     var id = 'b' + r + ',' + c;
-    var y = document.getElementById(id);
     var x = document.getElementById(id).innerHTML;
     if (x.length > 1) x = document.getElementById(id + '_').value;
     
-    y.style.animation = "wrongAnswer 1s ease-in-out";
-
     return x;
 }
+
+function wrongAnswer(r, c)
+{
+    const id = 'b' + r + ',' + c;
+    const cell = document.getElementById(id);
+    if (cell.classList.contains("runAnimation"))
+    {
+        cell.classList.remove("runAnimation");
+    }
+    cell.classList.add("runAnimation");
+}
+
+function Hint(r, c)
+{
+    alert(answerBoard[r][c]);
+}
+
+const submitButton = document.getElementById("boardsubmit");
+const passBox = document.querySelector(".passBox");
+
+submitButton.addEventListener("click", e => {
+    e.preventDefault;
+
+    let isPassed = true;
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (answerBoard[i][j] !== parseInt(Value(i, j))) {
+                wrongAnswer(i, j);
+                isPassed = false;
+            }
+        }
+    }
+    if (isPassed)
+        passBox.innerHTML = "Good job!";
+    else
+        passBox.innerHTML = "Wrong answer😥"; 
+})

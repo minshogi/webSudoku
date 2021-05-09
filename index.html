@@ -21,14 +21,15 @@
     </div>
 
     <div id="sudoku_container">
+        <h2 class="passBox cs_passBox"></h2>
         
             <div id="board">
             </div>
-            <button id="boardsubmit" type="button" onclick="submit()">Submit</button>
+            <button id="boardsubmit" type="button">Submit</button>
         <form id="Hint">
             <input id="Brow" type="number" placeholder="Row" min="0" max="8"/>
             <input id="Bcol" type="number" placeholder="Col" min="0" max="8"/>
-            <button id="bval" type="button" onclick="Print(document.getElementById('Brow').value, document.getElementById('Bcol').value)">Hint</button>
+            <button id="bval" type="button" onclick="Hint(document.getElementById('Brow').value, document.getElementById('Bcol').value)">Hint</button>
         </form>
     </div>
     <script src="sudoku.js"></script>

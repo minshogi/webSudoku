@@ -1,51 +1,61 @@
 #sudoku_title {
-  background: black;
-  color: white;
-  margin: 0px 0px 2px 0px;
-  font-size: 20px;
-  padding: 2px 1px 5px 1px;
-  text-align: center;
+	background: black;
+	color: white;
+	margin: 0px 0px 2px 0px;
+	font-size: 20px;
+	padding: 2px 1px 5px 1px;
+	text-align: center;
 }
 
 #sudoku_container {
-  display: flex;
-  height: 500px;
-  padding: 10px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+	display: flex;
+	height: 500px;
+	padding: 10px;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .sudokumat {
-  text-align: center;
-  width: 40px;
-  height: 40px;
+	text-align: center;
+	width: 40px;
+	height: 40px;
 }
 
-@keyframes wrongAnswer{
-  50%{
-    background-color: coral;
-  }
+@keyframes wrongAnswer {
+	50% {
+		background-color: coral;
+	}
+}
+
+.runAnimation {
+	animation: wrongAnswer 1s ease-in-out;
 }
 
 #board {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 #boardsubmit {
-  margin: 10px;
-  visibility: hidden;
+	margin: 10px;
+	visibility: hidden;
 }
 
 #Brow {
-  width: 60px;
+	width: 60px;
 }
 
 #Bcol {
-  width: 60px;
+	width: 60px;
 }
 
 #Hint {
-  visibility: hidden;
-  padding: auto;
+	visibility: hidden;
+	padding: auto;
+}
+
+.cs_passBox {
+	margin-top: 50px;
+	display: flex;
+	justify-content: center;
 }
