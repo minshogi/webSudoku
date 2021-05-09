@@ -5,27 +5,40 @@ function getRandomInt() {
   return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
 }
 
+let answerBoard;
+let usrBoard;
+
 var callMatAPI = (level) => {
-            // instantiate a headers object
-            var myHeaders = new Headers();
-            // add content type header to object
-            myHeaders.append("Content-Type", "application/json");
-            // using built in JSON utility package turn object to string and store in a variable
-            var raw = JSON.stringify({
-                "Level": level
-            });
-            // create a JSON object with parameters for API call and store in a variable
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-            // make API call with parameters and use promises to get response
-            fetch("", requestOptions)
-                .then(response => response.text())
-                .then(result => alert(JSON.parse(result).body))
-                .catch(error => console.log('error', error));
+    // instantiate a headers object
+    var myHeaders = new Headers();
+    // add content type header to object
+    myHeaders.append("Content-Type", "application/json");
+    // using built in JSON utility package turn object to string and store in a variable
+    var raw = JSON.stringify({
+        "Level": level
+    });
+    // create a JSON object with parameters for API call and store in a variable
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    console.log(raw);
+    // make API call with parameters and use promises to get response
+    fetch("https://v2ri4l5ybk.execute-api.us-west-2.amazonaws.com/boardPost", requestOptions)
+        .then(function (response) {
+            return response.text();
+        }).then(function (result) {
+            let data = JSON.parse(JSON.parse(result).body);
+            answerBoard = data["board"];
+            usrBoard = data["usr_board"];
+            make_matrix(data["usr_board"]);
+
+        }).catch(error => console.log('error', error));
+
+}
+
 
 function go(level)
 {
@@ -95,12 +108,7 @@ function Value(r, c)
     var x = document.getElementById(id).innerHTML;
     if (x.length > 1) x = document.getElementById(id + '_').value;
     
-    y.style.animation = "wrongAnswer 1s ease-in-out"
+    y.style.animation = "wrongAnswer 1s ease-in-out";
 
     return x;
-}
-
-function Print(r, c)
-{
-    alert(Value(r, c));
 }
