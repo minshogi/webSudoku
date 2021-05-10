@@ -153,6 +153,8 @@ def lambda_handler(event, context):
     num = nanido * 20 + 5
     usr_board = convert_sparse_matrix(board, num)
     body['usr_board'] = usr_board.tolist()
+    hint_zone = np.array(usr_board)
+    body['hint_zone'] = hint_zone.tolist()
     ret = {
         'statusCode': 200,
         'body': json.dumps(body)
