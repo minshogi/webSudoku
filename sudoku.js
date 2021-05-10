@@ -85,6 +85,7 @@ function wrongAnswer(r, c)
     {
         cell.classList.remove("runAnimation");
     }
+    void cell.offsetWidth;
     cell.classList.add("runAnimation");
 }
 
