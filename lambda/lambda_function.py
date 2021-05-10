@@ -112,7 +112,7 @@ def get_shuffled_sudoku(board):
             board[fi][fj] = first
             board[si][sj] = second
 
-    n = random.randint(0, 3) * 90
+    # n = random.randint(0, 3) * 90
     #print('n:', n)
     # board = rotate(board, n)   TODO
     return board
@@ -153,8 +153,6 @@ def lambda_handler(event, context):
     num = nanido * 20 + 5
     usr_board = convert_sparse_matrix(board, num)
     body['usr_board'] = usr_board.tolist()
-    hint_zone = np.array(usr_board)
-    body['hint_zone'] = hint_zone.tolist()
     ret = {
         'statusCode': 200,
         'body': json.dumps(body)

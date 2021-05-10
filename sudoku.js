@@ -7,7 +7,7 @@ const hintForm = document.querySelector(".Hint"),
 let answerBoard;
 let usrBoard;
 let remainingHints;
-let hintZone;
+//let hintZone;
 var callMatAPI = (level) => {
     // instantiate a headers object
     var myHeaders = new Headers();
@@ -32,7 +32,7 @@ var callMatAPI = (level) => {
             let data = JSON.parse(JSON.parse(result).body);
             answerBoard = data["board"];
             usrBoard = data["usr_board"];
-            hintZone = data["hint_zone"];
+            //hintZone = data["hint_zone"];
             make_matrix(data["usr_board"]);
         })
         .catch(error => console.log('error', error));
@@ -95,7 +95,7 @@ function Hint(r, c)
 {
     r -= 1;
     c -= 1;
-    if (remainingHints > 0 && hintZone[r][c] == 0) {
+    if (remainingHints > 0 && usrBoard[r][c] === 0) {
         remainingHints -= 1;
         hintPrintBox.innerHTML = answerBoard[r][c];
     }
