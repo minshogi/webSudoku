@@ -17,7 +17,7 @@
             <option value="2">Level 2</option>
             <option value="3">Level 3</option>
         </select>
-        <button onclick='callMatAPI(getElementById("difficulty-choice").value)'>New Game!</button>
+        <button class = "newGameBtn" type="submit")'>New Game!</button>
     </div>
 
     <div id="sudoku_container">
@@ -26,11 +26,13 @@
             <div id="board">
             </div>
             <button id="boardsubmit" type="button">Submit</button>
-        <form id="Hint">
+            <h5 class="remainingHints"></h5>
+        <form class="Hint">
             <input id="Brow" type="number" placeholder="Row" min="0" max="8"/>
             <input id="Bcol" type="number" placeholder="Col" min="0" max="8"/>
             <button id="bval" type="button" onclick="Hint(document.getElementById('Brow').value, document.getElementById('Bcol').value)">Hint</button>
         </form>
+        <h3 class="hintPrintBox"></h3>
     </div>
     <script src="sudoku.js"></script>
 </body>

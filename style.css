@@ -23,13 +23,14 @@
 }
 
 @keyframes wrongAnswer {
-	50% {
+	30%,
+	70% {
 		background-color: coral;
 	}
 }
 
 .runAnimation {
-	animation: wrongAnswer 1s ease-in-out;
+	animation: wrongAnswer 5s ease-in-out;
 }
 
 #board {
@@ -49,13 +50,13 @@
 	width: 60px;
 }
 
-#Hint {
+.Hint {
 	visibility: hidden;
 	padding: auto;
 }
 
 .cs_passBox {
-	margin-top: 50px;
+	margin-top: 150px;
 	display: flex;
 	justify-content: center;
 }

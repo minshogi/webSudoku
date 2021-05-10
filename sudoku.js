@@ -1,13 +1,12 @@
-
-function getRandomInt() {
-  min = Math.ceil(0);
-  max = Math.floor(9);
-  return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
-}
+const hintForm = document.querySelector(".Hint"),
+    newGameBtn = document.querySelector(".newGameBtn"),
+    hintPrintBox = document.querySelector(".hintPrintBox"),
+    submitButton = document.getElementById("boardsubmit"),
+    passBox = document.querySelector(".passBox");
 
 let answerBoard;
 let usrBoard;
-
+let remainingHints;
 var callMatAPI = (level) => {
     // instantiate a headers object
     var myHeaders = new Headers();
@@ -35,9 +34,7 @@ var callMatAPI = (level) => {
             make_matrix(data["usr_board"]);
         })
         .catch(error => console.log('error', error));
-
 }
-
 
 
 function make_matrix(barray)
@@ -63,9 +60,13 @@ function make_matrix(barray)
     
     document.getElementById("board").innerHTML = tag;
     document.getElementById("boardsubmit").style.visibility = "visible";
-    document.getElementById("Hint").style.visibility = "visible";
+    document.querySelector(".Hint").style.visibility = "visible";
+    rhPainter();
 }
 
+function rhPainter() {
+    document.querySelector(".remainingHints").innerHTML = "remaining Hints: " + remainingHints;
+}
 
 function Value(r, c)
 {
@@ -87,28 +88,59 @@ function wrongAnswer(r, c)
     cell.classList.add("runAnimation");
 }
 
+
 function Hint(r, c)
 {
-    alert(answerBoard[r][c]);
+    if (remainingHints > 0) {
+        remainingHints += -1;
+        hintPrintBox.innerHTML = answerBoard[r][c];
+    }
+    else {
+        hintPrintBox.innerHTML = "Can't use hint";
+    }
+    rhPainter();
 }
 
-const submitButton = document.getElementById("boardsubmit");
-const passBox = document.querySelector(".passBox");
+function newGameHandler(event) {
+    event.preventDefault();
+    const difficulty = document.querySelector("#difficulty-choice").value;
+    const a = parseInt(difficulty);
+    if (a === 1) {
+        remainingHints = 5;
+    }
+    else if (a === 2) {
+        remainingHints = 4;
+    }
+    else if(a === 3){
+        remainingHints = 3;
+    }
+    hintPrintBox.innerHTML = "";
+    passBox.innerHTML = "";
+    hintForm.querySelector("#Brow").value = "";
+    hintForm.querySelector("#Bcol").value = "";
+    callMatAPI(difficulty);
+}
 
-submitButton.addEventListener("click", e => {
-    e.preventDefault;
+function init() {
+    submitButton.addEventListener("click", e => {
+        e.preventDefault();
 
-    let isPassed = true;
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            if (answerBoard[i][j] !== parseInt(Value(i, j))) {
-                wrongAnswer(i, j);
-                isPassed = false;
+        let isPassed = true;
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                if (answerBoard[i][j] !== parseInt(Value(i, j))) {
+                    wrongAnswer(i, j);
+                    isPassed = false;
+                }
             }
         }
-    }
-    if (isPassed)
-        passBox.innerHTML = "Good job!";
-    else
-        passBox.innerHTML = "Wrong answer😥"; 
-})
+        if (isPassed)
+            passBox.innerHTML = "Good job!";
+        else
+            passBox.innerHTML = "Wrong answer😥"; 
+    })
+
+    newGameBtn.addEventListener("click", newGameHandler);
+}
+
+init();
