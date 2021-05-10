@@ -104,7 +104,7 @@ def get_shuffled_sudoku(board):
             board[fi][fj] = first
             board[si][sj] = second
 
-    n = random.randint(0, 3) * 90
+    #n = random.randint(0, 3) * 90
     #print('n:', n)
     #board = rotate(board, n)   TODO
     return board
@@ -129,8 +129,13 @@ def main(level):
     nanido = level["Level"]
     num = nanido * 20 + 5
     usr_board = convert_sparse_matrix(board, num)
+    hint_zone = []
+    for i in range(usr_board):
+        for j in range(usr_board[i]):
+            if usr_board[i][j] == 0:
+                hint_zone.append((i,j))
     print(board)
-    return board, usr_board
+    return board, usr_board, hint_zone
 
 
 if __name__ == "__main__":
